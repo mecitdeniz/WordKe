@@ -2,6 +2,7 @@ import React from 'react';
 import {StyleSheet, View} from 'react-native';
 import LevelBar from '../components/LevelBar';
 import Tile from '../components/Tile';
+import {BannerAd, TestIds, BannerAdSize} from '@react-native-admob/admob';
 
 const GameScreen = () => {
   const [level, setLevel] = React.useState([
@@ -12,6 +13,7 @@ const GameScreen = () => {
   return (
     <View style={styles.container}>
       <LevelBar level="1" />
+
       <View style={styles.board}>
         {level.map((row, index) => (
           <View key={`row_${index}`} style={{flexDirection: 'row'}}>
@@ -21,6 +23,12 @@ const GameScreen = () => {
           </View>
         ))}
       </View>
+      <BannerAd
+        size={BannerAdSize.BANNER}
+        unitId={TestIds.BANNER}
+        onAdLoaded={() => console.log('Banner Ad loaded!')}
+        onAdFailedToLoad={(error)=>console.log("Fail:",error)}
+      />
     </View>
   );
 };
@@ -31,6 +39,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   board: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
     marginTop: 40,
   },
 });
