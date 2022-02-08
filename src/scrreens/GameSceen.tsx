@@ -11,7 +11,7 @@ const GameScreen = () => {
     ['L', 'O', 'W'],
     ['O', 'R', 'D'],
   ]);
-  
+
   return (
     <View style={styles.container}>
       <LevelBar level="1" />

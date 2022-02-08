@@ -204,5 +204,7 @@
       <string>3qcr597p9d.skadnetwork</string>
     </dict>
   </array>
+  <key>NSUserTrackingUsageDescription</key>
+	<string>$(PRODUCT_NAME) requires your permission to track in order to show you more relevant ads.</string>
 </dict>
 </plist>
