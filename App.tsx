@@ -7,6 +7,7 @@ import {
 } from 'react-native-tracking-transparency';
 
 import GameScreen from './src/scrreens/GameSceen';
+import TestScreen from './src/scrreens/TestScreen';
 
 const App = () => {
   const [trackingStatus, setTrackingStatus] = React.useState<
@@ -52,7 +53,7 @@ const App = () => {
         justifyContent: 'center',
         alignItems: 'center',
       }}>
-      <GameScreen />
+      <TestScreen />
     </SafeAreaView>
   );
 };
