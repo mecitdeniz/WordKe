@@ -1,8 +1,9 @@
 import React from 'react';
 import {StyleSheet, View} from 'react-native';
+import {BannerAd, TestIds, BannerAdSize} from '@react-native-admob/admob';
+
 import LevelBar from '../components/LevelBar';
 import Tile from '../components/Tile';
-import {BannerAd, TestIds, BannerAdSize} from '@react-native-admob/admob';
 
 const GameScreen = () => {
   const [level, setLevel] = React.useState([
@@ -10,6 +11,7 @@ const GameScreen = () => {
     ['L', 'O', 'W'],
     ['O', 'R', 'D'],
   ]);
+  
   return (
     <View style={styles.container}>
       <LevelBar level="1" />
@@ -27,7 +29,7 @@ const GameScreen = () => {
         size={BannerAdSize.BANNER}
         unitId={TestIds.BANNER}
         onAdLoaded={() => console.log('Banner Ad loaded!')}
-        onAdFailedToLoad={(error)=>console.log("Fail:",error)}
+        onAdFailedToLoad={error => console.log('Fail:', error)}
       />
     </View>
   );
@@ -37,6 +39,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+    paddingVertical: 25,
   },
   board: {
     flex: 1,
