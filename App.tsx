@@ -6,6 +6,7 @@ import {
   getTrackingStatus,
   requestTrackingPermission,
 } from 'react-native-tracking-transparency';
+import GameProvider from './src/GameProvider';
 
 import GameScreen from './src/scrreens/GameSceen';
 import SplashScreen from './src/scrreens/SplashScreen';
@@ -59,11 +60,13 @@ const App = () => {
           justifyContent: 'center',
           alignItems: 'center',
         }}>
-        {splashDismissed ? (
-          <GameScreen />
-        ) : (
-          <SplashScreen onSplashDismissed={() => setSplashDismissed(true)} />
-        )}
+        <GameProvider>
+          {splashDismissed ? (
+            <GameScreen />
+          ) : (
+            <SplashScreen onSplashDismissed={() => setSplashDismissed(true)} />
+          )}
+        </GameProvider>
       </SafeAreaView>
     </AppOpenAdProvider>
   );

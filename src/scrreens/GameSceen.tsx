@@ -1,11 +1,12 @@
 import React from 'react';
-import {StyleSheet, View} from 'react-native';
+import {Button, StyleSheet, Text, View} from 'react-native';
 import {BannerAd, TestIds, BannerAdSize} from '@react-native-admob/admob';
 
 import LevelBar from '../components/LevelBar';
 import Tile from '../components/Tile';
 import {getDestinaion, IPosition, isValidMove} from './utils';
 import SwipeGesture from '../swipe-gesture';
+import {useGameContext} from '../GameProvider';
 
 const GameScreen = () => {
   const [level, setLevel] = React.useState([
@@ -13,6 +14,8 @@ const GameScreen = () => {
     ['L', 'O', 'W'],
     ['O', 'R', 'D'],
   ]);
+
+  const {dark, toggleDark} = useGameContext();
 
   const onSwipePerformed = (action: string, position: IPosition) => {
     const destination = getDestinaion(action, position);
@@ -50,6 +53,8 @@ const GameScreen = () => {
     <View style={styles.container}>
       <LevelBar level="1" />
 
+      <Text>{dark.toString()}</Text>
+      <Button title="Toggle Dark" onPress={toggleDark} />
       <View style={styles.board}>
         {renderRows(0)}
         {renderRows(1)}
