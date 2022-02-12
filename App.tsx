@@ -1,4 +1,5 @@
-import React from 'react';
+import {TestIds, AppOpenAdProvider} from '@react-native-admob/admob';
+import React, {useState} from 'react';
 import {SafeAreaView} from 'react-native';
 import {
   TrackingStatus,
@@ -7,11 +8,14 @@ import {
 } from 'react-native-tracking-transparency';
 
 import GameScreen from './src/scrreens/GameSceen';
+import SplashScreen from './src/scrreens/SplashScreen';
 
 const App = () => {
-  const [trackingStatus, setTrackingStatus] = React.useState<
+  const [trackingStatus, setTrackingStatus] = useState<
     TrackingStatus | '(loading)'
   >('(loading)');
+
+  const [splashDismissed, setSplashDismissed] = useState(false);
 
   const request = async () => {
     try {
@@ -46,14 +50,22 @@ const App = () => {
   }, []);
 
   return (
-    <SafeAreaView
-      style={{
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-      }}>
-      <GameScreen />
-    </SafeAreaView>
+    <AppOpenAdProvider
+      unitId={TestIds.APP_OPEN}
+      options={{showOnColdStart: true, loadOnDismissed: splashDismissed}}>
+      <SafeAreaView
+        style={{
+          flex: 1,
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}>
+        {splashDismissed ? (
+          <GameScreen />
+        ) : (
+          <SplashScreen onSplashDismissed={() => setSplashDismissed(true)} />
+        )}
+      </SafeAreaView>
+    </AppOpenAdProvider>
   );
 };
 
