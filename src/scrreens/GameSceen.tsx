@@ -1,47 +1,78 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import {Button, StyleSheet, Text, View} from 'react-native';
-import {BannerAd, TestIds, BannerAdSize} from '@react-native-admob/admob';
-
-import LevelBar from '../components/LevelBar';
+import levels from '../assets/levels.json';
 import Tile from '../components/Tile';
 import {getDestinaion, IPosition, isValidMove} from './utils';
 import SwipeGesture from '../swipe-gesture';
-import {useGameContext} from '../GameProvider';
+import Alert from '../components/Alert';
+import {useNavigation} from '@react-navigation/native';
+import {NativeStackNavigationProp} from '@react-navigation/native-stack';
+import {RootStackParams} from '../../App';
 
-const GameScreen = () => {
-  const [level, setLevel] = React.useState([
-    ['H', 'E', 'L'],
-    ['L', 'O', 'W'],
-    ['O', 'R', 'D'],
-  ]);
+const GameScreen: React.FC = () => {
+  const navigation =
+    useNavigation<NativeStackNavigationProp<RootStackParams>>();
 
-  const {dark, toggleDark} = useGameContext();
+  const [puzzle, setPuzzle] = useState<string[][]>([[], [], []]);
+  const [goal, setGoal] = useState<string[][]>([[], [], []]);
+
+  const [ready, setReady] = useState(false);
+  const [visible, setVisible] = useState(false);
 
   const onSwipePerformed = (action: string, position: IPosition) => {
     const destination = getDestinaion(action, position);
     if (!isValidMove(destination)) return;
 
-    const posValue = level[position.row][position.col];
-    const destValue = level[destination.row][destination.col];
-
-    const lvl = [...level];
-    lvl[position.row][position.col] = destValue;
-    lvl[destination.row][destination.col] = posValue;
-    setLevel([...lvl]);
+    const newPuzzle = swap(puzzle, position, destination);
+    setPuzzle(newPuzzle.slice());
   };
 
-  React.useEffect(() => {}, []);
+  const swap = (list: string[][], a: IPosition, b: IPosition): string[][] => {
+    const temp = list[a.row][a.col];
+    list[a.row][a.col] = list[b.row][b.col];
+    list[b.row][b.col] = temp;
+    return list;
+  };
+
+  const isComplated = () => {
+    const strPuzzle = puzzle.toString().trim();
+    const strGoal = goal.toString().trim();
+    console.log(strPuzzle);
+    console.log(strGoal);
+    if (strPuzzle !== strGoal) return false;
+    return true;
+  };
+
+  const generatePuzzle = () => {
+    const randomLevel = Math.floor(Math.random() * 10);
+    console.log(randomLevel, levels[randomLevel].state);
+    setPuzzle(levels[randomLevel].state);
+    setGoal(levels[randomLevel].goal);
+  };
+
+  useEffect(() => {
+    if (!ready) {
+      generatePuzzle();
+      setReady(true);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (ready && isComplated()) {
+      navigation.replace('Win', {goal});
+    }
+  }, [puzzle]);
 
   const renderRows = (rowIndex: number) => {
     return (
       <View style={styles.row}>
-        {level[rowIndex].map((char, index) => (
+        {puzzle[rowIndex].map((char, index) => (
           <SwipeGesture
             key={`tile_${rowIndex}_${index}`}
             gestureStyle={styles.square}
-            onSwipePerformed={(action: string) =>
-              onSwipePerformed(action, {row: rowIndex, col: index})
-            }>
+            onSwipePerformed={(action: string) => {
+              onSwipePerformed(action, {row: rowIndex, col: index});
+            }}>
             <Tile char={char} key={'' + index} />
           </SwipeGesture>
         ))}
@@ -51,22 +82,28 @@ const GameScreen = () => {
 
   return (
     <View style={styles.container}>
-      <LevelBar level="1" />
-
-      <Text>{dark.toString()}</Text>
-      <Button title="Toggle Dark" onPress={toggleDark} />
-      <View style={styles.board}>
-        {renderRows(0)}
-        {renderRows(1)}
-        {renderRows(2)}
-      </View>
-
-      <BannerAd
-        size={BannerAdSize.BANNER}
-        unitId={TestIds.BANNER}
-        onAdLoaded={() => console.log('Banner Ad loaded!')}
-        onAdFailedToLoad={error => console.log('Fail:', error)}
-      />
+      {puzzle[0].length ? (
+        <View style={styles.board}>
+          {renderRows(0)}
+          {renderRows(1)}
+          {renderRows(2)}
+        </View>
+      ) : (
+        <Text>Not ready</Text>
+      )}
+      <Alert visible={visible}>
+        <Button title="Close" onPress={() => setVisible(false)} />
+        <Text style={{marginVertical: 30, fontSize: 20, textAlign: 'center'}}>
+          Congratulations!
+        </Text>
+        <Button
+          title="Next"
+          onPress={() => {
+            setVisible(false);
+          }}
+        />
+      </Alert>
+      <Button title="Show" onPress={() => setVisible(true)} />
     </View>
   );
 };
