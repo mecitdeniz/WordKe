@@ -17,7 +17,7 @@ import GameProvider from './src/GameProvider';
 export type RootStackParams = {
   Home: any;
   Game: any;
-  Win: {goal: string[][]};
+  Win: {goal: string[][]; count: number};
 };
 
 const Stack = createNativeStackNavigator<RootStackParams>();

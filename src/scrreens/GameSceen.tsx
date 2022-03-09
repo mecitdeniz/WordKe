@@ -16,6 +16,7 @@ const GameScreen: React.FC = () => {
   const [puzzle, setPuzzle] = useState<string[][]>([[], [], []]);
   const [goal, setGoal] = useState<string[][]>([[], [], []]);
 
+  const [count, setCount] = useState(0);
   const [ready, setReady] = useState(false);
   const [visible, setVisible] = useState(false);
 
@@ -25,6 +26,7 @@ const GameScreen: React.FC = () => {
 
     const newPuzzle = swap(puzzle, position, destination);
     setPuzzle(newPuzzle.slice());
+    setCount(prev => prev + 1);
   };
 
   const swap = (list: string[][], a: IPosition, b: IPosition): string[][] => {
@@ -59,7 +61,7 @@ const GameScreen: React.FC = () => {
 
   useEffect(() => {
     if (ready && isComplated()) {
-      navigation.replace('Win', {goal});
+      navigation.replace('Win', {goal, count});
     }
   }, [puzzle]);
 
@@ -73,7 +75,7 @@ const GameScreen: React.FC = () => {
             onSwipePerformed={(action: string) => {
               onSwipePerformed(action, {row: rowIndex, col: index});
             }}>
-            <Tile char={char} key={'' + index} />
+            <Tile char={char} size="large" key={'' + index} />
           </SwipeGesture>
         ))}
       </View>
@@ -113,6 +115,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     paddingVertical: 35,
+    backgroundColor: '#C8C8C8',
   },
   board: {
     flex: 1,
@@ -127,6 +130,15 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     margin: 5,
+    borderRadius: 5,
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 5,
   },
   row: {
     flexDirection: 'row',

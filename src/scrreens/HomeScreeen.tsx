@@ -8,20 +8,18 @@ import GameContext from '../GameContext';
 const HomeScreen: React.FC = () => {
   const navigation =
     useNavigation<NativeStackNavigationProp<RootStackParams>>();
-
-  const {count, increment} = useContext(GameContext);
   const handlePressPlay = () => {
     navigation.navigate('Game');
   };
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>WordKe {count}</Text>
+      <Text style={styles.title}>WordKe</Text>
       <TouchableOpacity onPress={handlePressPlay} style={styles.btn}>
         <Text style={styles.text}>Play</Text>
       </TouchableOpacity>
       <View style={styles.row}>
-        <TouchableOpacity style={styles.btnSmall} onPress={increment}>
+        <TouchableOpacity style={styles.btnSmall}>
           <Text style={styles.text}>Theme</Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.btnSmall}>
@@ -45,6 +43,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     paddingVertical: 35,
+    backgroundColor: '#C8C8C8',
   },
   btn: {
     backgroundColor: '#000000',
@@ -54,6 +53,14 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     margin: 5,
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 5,
   },
   btnSmall: {
     backgroundColor: '#000000',
@@ -63,6 +70,14 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     margin: 5,
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 5,
   },
   text: {
     color: 'white',
