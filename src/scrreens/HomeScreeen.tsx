@@ -14,16 +14,19 @@ const HomeScreen: React.FC = () => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>WordKe</Text>
+      <Text style={styles.title}>
+        Word<Text style={{color: '#FFFFFF'}}>Ke</Text>
+      </Text>
+      <Text style={{fontSize: 16, fontWeight: 'bold'}}>Türkçe</Text>
       <TouchableOpacity onPress={handlePressPlay} style={styles.btn}>
-        <Text style={styles.text}>Play</Text>
+        <Text style={styles.text}>Oyna</Text>
       </TouchableOpacity>
       <View style={styles.row}>
         <TouchableOpacity style={styles.btnSmall}>
-          <Text style={styles.text}>Theme</Text>
+          <Text style={styles.text}>Temalar</Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.btnSmall}>
-          <Text style={styles.text}>Settings</Text>
+          <Text style={styles.text}>Ayarlar</Text>
         </TouchableOpacity>
       </View>
       <View style={{height: 45}}>
@@ -61,6 +64,7 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
     elevation: 5,
+    marginTop: 30,
   },
   btnSmall: {
     backgroundColor: '#000000',
@@ -82,11 +86,12 @@ const styles = StyleSheet.create({
   text: {
     color: 'white',
     fontSize: 16,
+    fontFamily: 'Fredoka One',
   },
   title: {
     color: '#000000',
     fontSize: 36,
-    marginBottom: 20,
+    fontFamily: 'Fredoka One',
   },
   row: {
     flexDirection: 'row',

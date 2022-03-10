@@ -84,6 +84,10 @@ const GameScreen: React.FC = () => {
 
   return (
     <View style={styles.container}>
+      <Text style={styles.title}>
+        Word<Text style={{color: '#FFFFFF'}}>Ke</Text>
+      </Text>
+      <Text style={{fontSize: 16, fontWeight: 'bold'}}>Türkçe</Text>
       {puzzle[0].length ? (
         <View style={styles.board}>
           {renderRows(0)}
@@ -142,6 +146,12 @@ const styles = StyleSheet.create({
   },
   row: {
     flexDirection: 'row',
+  },
+  title: {
+    color: '#000000',
+    fontSize: 36,
+    fontFamily: 'Fredoka One',
+    marginTop: 30,
   },
 });
 

@@ -31,9 +31,7 @@ const WinScreen: React.FC = () => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>
-        Tebrikler! Doğru bir sıralama buldun ⭐⭐⭐
-      </Text>
+      <Text style={styles.title}>Tebrikler! Sıralamayı buldun ⭐⭐⭐</Text>
       <View style={styles.board}>
         <View>
           {renderRows(0)}
@@ -46,7 +44,7 @@ const WinScreen: React.FC = () => {
             <Text style={{fontWeight: 'bold', fontSize: 22}}>{count}</Text>
           </Text>
           <TouchableOpacity style={styles.btnShare}>
-            <Text style={[styles.text, {color: '#000000'}]}>Paylaş</Text>
+            <Text style={[styles.text, {color: '#000000'}]}>Paylas</Text>
           </TouchableOpacity>
           <TouchableOpacity
             onPress={handlePressPlay}
@@ -121,6 +119,7 @@ const styles = StyleSheet.create({
   text: {
     color: 'white',
     fontSize: 16,
+    fontFamily: 'Fredoka One',
   },
   title: {
     color: '#000000',
@@ -128,12 +127,14 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     marginBottom: 20,
     maxWidth: 300,
+    fontFamily: 'Fredoka One',
   },
   count: {
     color: '#000000',
     fontSize: 20,
     marginBottom: 20,
     marginLeft: 5,
+    fontFamily: 'Fredoka One',
   },
   row: {
     flexDirection: 'row',
