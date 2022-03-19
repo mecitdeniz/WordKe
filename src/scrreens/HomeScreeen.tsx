@@ -1,9 +1,8 @@
-import React, {useState, useEffect, useContext} from 'react';
+import React from 'react';
 import {useNavigation} from '@react-navigation/native';
 import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {RootStackParams} from '../../App';
-import GameContext from '../GameContext';
 
 const HomeScreen: React.FC = () => {
   const navigation =

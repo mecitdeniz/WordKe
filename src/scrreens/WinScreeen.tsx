@@ -38,14 +38,11 @@ const WinScreen: React.FC = () => {
           {renderRows(1)}
           {renderRows(2)}
         </View>
-        <View>
+        <View style={{marginTop: 60}}>
           <Text style={styles.count}>
             Hamle Sayısı :{' '}
             <Text style={{fontWeight: 'bold', fontSize: 22}}>{count}</Text>
           </Text>
-          <TouchableOpacity style={styles.btnShare}>
-            <Text style={[styles.text, {color: '#000000'}]}>Paylas</Text>
-          </TouchableOpacity>
           <TouchableOpacity
             onPress={handlePressPlay}
             style={styles.btnPlayAgain}>
