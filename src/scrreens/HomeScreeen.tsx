@@ -24,7 +24,7 @@ const HomeScreen: React.FC = () => {
 
   return (
     <View style={styles.container}>
-      <StatusBar barStyle="light-content" backgroundColor="#FFFFF" />
+      <StatusBar barStyle="light-content" backgroundColor="#0000" hidden />
 
       <Logo />
 

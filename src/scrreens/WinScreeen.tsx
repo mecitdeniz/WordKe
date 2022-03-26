@@ -1,6 +1,6 @@
 import React from 'react';
 import {RouteProp, useNavigation, useRoute} from '@react-navigation/native';
-import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {StatusBar, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {RootStackParams} from '../../App';
 import Tile from '../components/Tile';
@@ -33,6 +33,8 @@ const WinScreen: React.FC = () => {
 
   return (
     <View style={styles.container}>
+      <StatusBar barStyle="light-content" backgroundColor="#0000" hidden />
+
       <Logo />
       <Text style={styles.winText}>Tebrikler! Sıralamayı buldun ⭐⭐⭐</Text>
       <View style={styles.board}>

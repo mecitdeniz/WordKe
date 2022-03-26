@@ -99,7 +99,7 @@ const GameScreen: React.FC = () => {
 
   return (
     <View style={styles.container}>
-      <StatusBar barStyle="light-content" backgroundColor="#FFFFF" />
+      <StatusBar barStyle="light-content" backgroundColor="#0000" hidden />
       <Logo />
       <Text style={styles.count}>{count}</Text>
 
