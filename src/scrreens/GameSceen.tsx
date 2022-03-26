@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import {StyleSheet, Text, View} from 'react-native';
+import {StatusBar, StyleSheet, Text, View} from 'react-native';
 
 import {useNavigation} from '@react-navigation/native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
@@ -12,6 +12,8 @@ import Logo from '../components/Logo';
 import SwipeGesture from '../components/swipe-gesture';
 
 import {getDestinaion, IPosition, isValidMove} from './utils';
+import {SafeAreaView} from 'react-native-safe-area-context';
+import Banner from '../components/ads/Banner';
 
 const GameScreen: React.FC = () => {
   const navigation =
@@ -85,35 +87,43 @@ const GameScreen: React.FC = () => {
     );
   };
 
+  const renderBoard = () => {
+    return (
+      <View style={styles.board}>
+        {renderRows(0)}
+        {renderRows(1)}
+        {renderRows(2)}
+      </View>
+    );
+  };
+
   return (
     <View style={styles.container}>
+      <StatusBar barStyle="light-content" backgroundColor="#FFFFF" />
       <Logo />
       <Text style={styles.count}>{count}</Text>
-      {puzzle[0].length ? (
-        <View style={styles.board}>
-          {renderRows(0)}
-          {renderRows(1)}
-          {renderRows(2)}
-        </View>
-      ) : (
-        <Text>Not ready</Text>
-      )}
+
+      {puzzle[0].length ? renderBoard() : <Text>Not ready</Text>}
+
+      <Banner />
     </View>
   );
 };
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
     alignItems: 'center',
     paddingVertical: 35,
     backgroundColor: '#121213',
   },
   board: {
-    flex: 1,
-    justifyContent: 'center',
+    top: 0,
+    bottom: 0,
+    left: 0,
+    right: 0,
+    position: 'absolute',
     alignItems: 'center',
-    marginTop: 40,
+    justifyContent: 'center',
   },
   square: {
     backgroundColor: '#000000',

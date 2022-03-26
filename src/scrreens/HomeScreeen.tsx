@@ -1,9 +1,19 @@
 import React from 'react';
+import {
+  Text,
+  View,
+  StatusBar,
+  StyleSheet,
+  TouchableOpacity,
+} from 'react-native';
+
 import {useNavigation} from '@react-navigation/native';
-import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
+
 import {RootStackParams} from '../../App';
+
 import Logo from '../components/Logo';
+import Banner from '../components/ads/Banner';
 
 const HomeScreen: React.FC = () => {
   const navigation =
@@ -14,10 +24,14 @@ const HomeScreen: React.FC = () => {
 
   return (
     <View style={styles.container}>
+      <StatusBar barStyle="light-content" backgroundColor="#FFFFF" />
+
       <Logo />
+
       <TouchableOpacity onPress={handlePressPlay} style={styles.btn}>
         <Text style={styles.text}>Oyna</Text>
       </TouchableOpacity>
+
       <View style={styles.row}>
         <TouchableOpacity style={styles.btnSmall}>
           <Text style={styles.text}>Temalar</Text>
@@ -26,14 +40,8 @@ const HomeScreen: React.FC = () => {
           <Text style={styles.text}>Ayarlar</Text>
         </TouchableOpacity>
       </View>
-      <View style={{height: 45}}>
-        {/* <BannerAd
-          size={BannerAdSize.BANNER}
-          unitId={TestIds.BANNER}
-          onAdLoaded={() => console.log('Banner Ad loaded!')}
-          onAdFailedToLoad={error => console.log('Fail:', error)}
-        /> */}
-      </View>
+
+      <Banner />
     </View>
   );
 };
@@ -42,7 +50,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    paddingVertical: 35,
+    padding: 35,
     backgroundColor: '#121213',
   },
   btn: {

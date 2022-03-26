@@ -127,7 +127,7 @@ const styles = StyleSheet.create({
     fontSize: 24,
     textAlign: 'center',
     marginTop: 45,
-    marginBotom: 30,
+    marginBottom: 30,
     maxWidth: 300,
     fontFamily: 'Fredoka One',
   },
