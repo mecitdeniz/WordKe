@@ -3,6 +3,7 @@ import {useNavigation} from '@react-navigation/native';
 import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {RootStackParams} from '../../App';
+import Logo from '../components/Logo';
 
 const HomeScreen: React.FC = () => {
   const navigation =
@@ -13,10 +14,7 @@ const HomeScreen: React.FC = () => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>
-        Word<Text style={{color: '#FFFFFF'}}>Ke</Text>
-      </Text>
-      <Text style={{fontSize: 16, fontWeight: 'bold'}}>Türkçe</Text>
+      <Logo />
       <TouchableOpacity onPress={handlePressPlay} style={styles.btn}>
         <Text style={styles.text}>Oyna</Text>
       </TouchableOpacity>
@@ -45,10 +43,10 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     paddingVertical: 35,
-    backgroundColor: '#C8C8C8',
+    backgroundColor: '#121213',
   },
   btn: {
-    backgroundColor: '#000000',
+    backgroundColor: '#3a3a3c',
     height: 80,
     width: 220,
     borderRadius: 15,
@@ -66,7 +64,7 @@ const styles = StyleSheet.create({
     marginTop: 30,
   },
   btnSmall: {
-    backgroundColor: '#000000',
+    backgroundColor: '#3a3a3c',
     height: 80,
     width: 105,
     borderRadius: 15,
@@ -88,7 +86,7 @@ const styles = StyleSheet.create({
     fontFamily: 'Fredoka One',
   },
   title: {
-    color: '#000000',
+    color: '#FFFF',
     fontSize: 36,
     fontFamily: 'Fredoka One',
   },

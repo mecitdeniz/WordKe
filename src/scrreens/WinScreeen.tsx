@@ -4,11 +4,13 @@ import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {RootStackParams} from '../../App';
 import Tile from '../components/Tile';
+import Logo from '../components/Logo';
 
 type WinScreeenRoutetype = RouteProp<RootStackParams, 'Win'>;
 const WinScreen: React.FC = () => {
   const navigation =
     useNavigation<NativeStackNavigationProp<RootStackParams>>();
+
   const {
     params: {goal, count},
   } = useRoute<WinScreeenRoutetype>();
@@ -22,7 +24,7 @@ const WinScreen: React.FC = () => {
       <View style={styles.row}>
         {goal[rowIndex].map((char, index) => (
           <View key={`tile_${rowIndex}_${index}`}>
-            <Tile char={char} size="small" key={'' + index} />
+            <Tile char={char} size="small" key={'' + index} success={true} />
           </View>
         ))}
       </View>
@@ -31,7 +33,8 @@ const WinScreen: React.FC = () => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Tebrikler! Sıralamayı buldun ⭐⭐⭐</Text>
+      <Logo />
+      <Text style={styles.winText}>Tebrikler! Sıralamayı buldun ⭐⭐⭐</Text>
       <View style={styles.board}>
         <View>
           {renderRows(0)}
@@ -41,7 +44,9 @@ const WinScreen: React.FC = () => {
         <View style={{marginTop: 60}}>
           <Text style={styles.count}>
             Hamle Sayısı :{' '}
-            <Text style={{fontWeight: 'bold', fontSize: 22}}>{count}</Text>
+            <Text style={{fontWeight: 'bold', fontSize: 22}}>
+              <Text style={{color: '#538d4e'}}>{count}</Text>
+            </Text>
           </Text>
           <TouchableOpacity
             onPress={handlePressPlay}
@@ -56,16 +61,15 @@ const WinScreen: React.FC = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
     alignItems: 'center',
     paddingVertical: 35,
-    backgroundColor: '#C8C8C8',
+    backgroundColor: '#121213',
   },
   board: {
     justifyContent: 'center',
     alignItems: 'center',
     marginTop: 40,
-    backgroundColor: '#A9A9A9',
+    backgroundColor: '#3a3a3c',
     width: '100%',
     height: 300,
     flexDirection: 'row',
@@ -97,7 +101,7 @@ const styles = StyleSheet.create({
     elevation: 5,
   },
   btnPlayAgain: {
-    backgroundColor: '#000000',
+    backgroundColor: '#121213',
     height: 45,
     width: 200,
     borderRadius: 10,
@@ -114,22 +118,28 @@ const styles = StyleSheet.create({
     elevation: 5,
   },
   text: {
-    color: 'white',
+    color: '#FFFF',
     fontSize: 16,
     fontFamily: 'Fredoka One',
   },
-  title: {
-    color: '#000000',
+  winText: {
+    color: '#FFFF',
     fontSize: 24,
     textAlign: 'center',
-    marginBottom: 20,
+    marginTop: 45,
+    marginBotom: 30,
     maxWidth: 300,
     fontFamily: 'Fredoka One',
   },
+  title: {
+    color: '#FFFF',
+    fontSize: 36,
+    fontFamily: 'Fredoka One',
+    marginTop: 45,
+  },
   count: {
-    color: '#000000',
+    color: '#FFFF',
     fontSize: 20,
-    marginBottom: 20,
     marginLeft: 5,
     fontFamily: 'Fredoka One',
   },

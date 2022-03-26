@@ -4,6 +4,7 @@ import {View, Text, StyleSheet} from 'react-native';
 interface TileProps {
   char: string;
   size: 'small' | 'large';
+  success: boolean;
 }
 
 enum SIZES {
@@ -16,11 +17,13 @@ enum FONTSIZES {
   LARGE = 30,
 }
 
-const Tile: React.FC<TileProps> = ({char, size}) => {
+const Tile: React.FC<TileProps> = ({char, size, success}) => {
   const calculateSize = () =>
     size && size === 'small' ? SIZES.SMALL : SIZES.LARGE;
   const calculateFontSize = () =>
     size && size === 'small' ? FONTSIZES.SMALL : FONTSIZES.LARGE;
+  const backgroundColor = success === false ? '#3a3a3c' : '#538d4e';
+
   return (
     <View
       style={[
@@ -28,6 +31,7 @@ const Tile: React.FC<TileProps> = ({char, size}) => {
         {
           width: calculateSize(),
           height: calculateSize(),
+          backgroundColor
         },
       ]}>
       <Text style={[styles.text, {fontSize: calculateFontSize()}]}>{char}</Text>
@@ -39,7 +43,6 @@ const styles = StyleSheet.create({
   container: {
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: 'black',
     margin: 5,
     borderRadius: 5,
 
@@ -53,7 +56,7 @@ const styles = StyleSheet.create({
     elevation: 5,
   },
   text: {
-    color: 'white',
+    color: '#FFFF',
     fontWeight: 'bold',
     fontFamily: 'Fredoka One',
   },

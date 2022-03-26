@@ -1,13 +1,17 @@
 import React, {useState, useEffect} from 'react';
-import {Button, StyleSheet, Text, View} from 'react-native';
-import levels from '../assets/levels.json';
-import Tile from '../components/Tile';
-import {getDestinaion, IPosition, isValidMove} from './utils';
-import SwipeGesture from '../swipe-gesture';
-import Alert from '../components/Alert';
+import {StyleSheet, Text, View} from 'react-native';
+
 import {useNavigation} from '@react-navigation/native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
+
+import levels from '../assets/levels.json';
 import {RootStackParams} from '../../App';
+
+import Tile from '../components/Tile';
+import Logo from '../components/Logo';
+import SwipeGesture from '../components/swipe-gesture';
+
+import {getDestinaion, IPosition, isValidMove} from './utils';
 
 const GameScreen: React.FC = () => {
   const navigation =
@@ -18,7 +22,6 @@ const GameScreen: React.FC = () => {
 
   const [count, setCount] = useState(0);
   const [ready, setReady] = useState(false);
-  const [visible, setVisible] = useState(false);
 
   const onSwipePerformed = (action: string, position: IPosition) => {
     const destination = getDestinaion(action, position);
@@ -75,7 +78,7 @@ const GameScreen: React.FC = () => {
             onSwipePerformed={(action: string) => {
               onSwipePerformed(action, {row: rowIndex, col: index});
             }}>
-            <Tile char={char} size="large" key={'' + index} />
+            <Tile char={char} size="large" key={'' + index} success={false} />
           </SwipeGesture>
         ))}
       </View>
@@ -84,10 +87,8 @@ const GameScreen: React.FC = () => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>
-        Word<Text style={{color: '#FFFFFF'}}>Ke</Text>
-      </Text>
-      <Text style={{fontSize: 16, fontWeight: 'bold'}}>Türkçe</Text>
+      <Logo />
+      <Text style={styles.count}>{count}</Text>
       {puzzle[0].length ? (
         <View style={styles.board}>
           {renderRows(0)}
@@ -97,19 +98,6 @@ const GameScreen: React.FC = () => {
       ) : (
         <Text>Not ready</Text>
       )}
-      <Alert visible={visible}>
-        <Button title="Close" onPress={() => setVisible(false)} />
-        <Text style={{marginVertical: 30, fontSize: 20, textAlign: 'center'}}>
-          Congratulations!
-        </Text>
-        <Button
-          title="Next"
-          onPress={() => {
-            setVisible(false);
-          }}
-        />
-      </Alert>
-      <Button title="Show" onPress={() => setVisible(true)} />
     </View>
   );
 };
@@ -119,7 +107,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     paddingVertical: 35,
-    backgroundColor: '#C8C8C8',
+    backgroundColor: '#121213',
   },
   board: {
     flex: 1,
@@ -148,10 +136,18 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
   },
   title: {
-    color: '#000000',
+    color: '#FFFF',
     fontSize: 36,
     fontFamily: 'Fredoka One',
     marginTop: 30,
+  },
+  count: {
+    fontSize: 30,
+    marginTop: 30,
+    color: '#FFFF',
+    textAlign: 'center',
+    fontWeight: 'bold',
+    fontFamily: 'Fredoka One',
   },
 });
 
