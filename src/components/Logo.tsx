@@ -1,15 +1,14 @@
 import React from 'react';
-import {View, Text, StyleSheet} from 'react-native';
+import {View, StyleSheet} from 'react-native';
+import Text, {TextTypes} from './Text';
 
 const Logo: React.FC = () => {
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>
-        Word<Text style={{color: '#538d4e'}}>Ke</Text>
+      <Text type={TextTypes.TITLE}>
+        Word<Text type={TextTypes.TITLE} style={{color: '#538d4e'}}>Ke</Text>
       </Text>
-      <Text style={{fontSize: 16, fontWeight: 'bold', color: '#538d4e'}}>
-        Türkçe
-      </Text>
+      <Text type={TextTypes.SUBTITLE}>Türkçe</Text>
     </View>
   );
 };
@@ -22,13 +21,14 @@ const styles = StyleSheet.create({
   title: {
     color: '#FFFF',
     fontSize: 36,
-    fontFamily: 'Fredoka One',
+    fontFamily: 'SigmarOne-Regular',
     marginTop: 30,
   },
   lang: {
-    color: '#FFFF',
+    fontSize: 16,
+    color: '#538d4e',
     fontWeight: 'bold',
-    fontFamily: 'Fredoka One',
+    fontFamily: 'SigmarOne-Regular',
   },
 });
 

@@ -58,7 +58,7 @@ const styles = StyleSheet.create({
   text: {
     color: '#FFFF',
     fontWeight: 'bold',
-    fontFamily: 'Fredoka One',
+    fontFamily: 'SigmarOne-Regular',
   },
 });
 

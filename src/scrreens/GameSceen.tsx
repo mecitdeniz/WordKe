@@ -12,7 +12,6 @@ import Logo from '../components/Logo';
 import SwipeGesture from '../components/swipe-gesture';
 
 import {getDestinaion, IPosition, isValidMove} from './utils';
-import {SafeAreaView} from 'react-native-safe-area-context';
 import Banner from '../components/ads/Banner';
 
 const GameScreen: React.FC = () => {
@@ -148,7 +147,7 @@ const styles = StyleSheet.create({
   title: {
     color: '#FFFF',
     fontSize: 36,
-    fontFamily: 'Fredoka One',
+    fontFamily: 'SigmarOne-Regular',
     marginTop: 30,
   },
   count: {
@@ -157,7 +156,7 @@ const styles = StyleSheet.create({
     color: '#FFFF',
     textAlign: 'center',
     fontWeight: 'bold',
-    fontFamily: 'Fredoka One',
+    fontFamily: 'SigmarOne-Regular',
   },
 });
 

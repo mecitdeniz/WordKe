@@ -1,11 +1,5 @@
 import React from 'react';
-import {
-  Text,
-  View,
-  StatusBar,
-  StyleSheet,
-  TouchableOpacity,
-} from 'react-native';
+import {View, StatusBar, StyleSheet, TouchableOpacity} from 'react-native';
 
 import {useNavigation} from '@react-navigation/native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
@@ -14,6 +8,7 @@ import {RootStackParams} from '../../App';
 
 import Logo from '../components/Logo';
 import Banner from '../components/ads/Banner';
+import Text, {textStyles, TextTypes} from '../components/Text';
 
 const HomeScreen: React.FC = () => {
   const navigation =
@@ -29,15 +24,15 @@ const HomeScreen: React.FC = () => {
       <Logo />
 
       <TouchableOpacity onPress={handlePressPlay} style={styles.btn}>
-        <Text style={styles.text}>Oyna</Text>
+        <Text type={TextTypes.SUBTITLE}>Oyna</Text>
       </TouchableOpacity>
 
       <View style={styles.row}>
         <TouchableOpacity style={styles.btnSmall}>
-          <Text style={styles.text}>Temalar</Text>
+          <Text type={TextTypes.SUBTITLE}>Temalar</Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.btnSmall}>
-          <Text style={styles.text}>Ayarlar</Text>
+          <Text type={TextTypes.SUBTITLE}>Ayarlar</Text>
         </TouchableOpacity>
       </View>
 
@@ -91,12 +86,12 @@ const styles = StyleSheet.create({
   text: {
     color: 'white',
     fontSize: 16,
-    fontFamily: 'Fredoka One',
+    fontFamily: 'SigmarOne-Regular',
   },
   title: {
     color: '#FFFF',
     fontSize: 36,
-    fontFamily: 'Fredoka One',
+    fontFamily: 'SigmarOne-Regular',
   },
   row: {
     flexDirection: 'row',

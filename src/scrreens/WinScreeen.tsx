@@ -122,7 +122,7 @@ const styles = StyleSheet.create({
   text: {
     color: '#FFFF',
     fontSize: 16,
-    fontFamily: 'Fredoka One',
+    fontFamily: 'SigmarOne-Regular',
   },
   winText: {
     color: '#FFFF',
@@ -131,19 +131,19 @@ const styles = StyleSheet.create({
     marginTop: 45,
     marginBottom: 30,
     maxWidth: 300,
-    fontFamily: 'Fredoka One',
+    fontFamily: 'SigmarOne-Regular',
   },
   title: {
     color: '#FFFF',
     fontSize: 36,
-    fontFamily: 'Fredoka One',
+    fontFamily: 'SigmarOne-Regular',
     marginTop: 45,
   },
   count: {
     color: '#FFFF',
     fontSize: 20,
     marginLeft: 5,
-    fontFamily: 'Fredoka One',
+    fontFamily: 'SigmarOne-Regular',
   },
   row: {
     flexDirection: 'row',

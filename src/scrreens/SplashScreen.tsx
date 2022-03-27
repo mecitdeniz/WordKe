@@ -25,6 +25,4 @@ const SplashScreen: React.FC<SplashScreenProps> = ({onSplashDismissed}) => {
   );
 };
 
-const styles = StyleSheet.create({});
-
 export default SplashScreen;
