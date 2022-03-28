@@ -8,10 +8,8 @@ import {
 interface TextProps extends DefaultTextProps {
   type: TextTypes;
 }
-
 export interface TextStyles {
   fontSize: FONTSIZES;
-  color: string;
 }
 
 export enum TextTypes {
@@ -21,29 +19,26 @@ export enum TextTypes {
 }
 
 export enum FONTSIZES {
-  DEFAULT = 30,
+  DEFAULT = 20,
   TITLE = 36,
-  SUBTITLE = 15,
+  SUBTITLE = 16,
 }
 
 export const textStyles: {[key in TextTypes]: TextStyles} = {
   [TextTypes.DEFAULT]: {
     fontSize: FONTSIZES.DEFAULT,
-    color: '#FFFF',
   },
   [TextTypes.TITLE]: {
     fontSize: FONTSIZES.TITLE,
-    color: '#FFFF',
   },
   [TextTypes.SUBTITLE]: {
     fontSize: FONTSIZES.SUBTITLE,
-    color: '#FFFF',
   },
 };
 
-const Text: React.FC<TextProps> = ({children, type}) => {
+const Text: React.FC<TextProps> = ({children, type, style}) => {
   return (
-    <DefaultText style={[styles.text, textStyles[type]]}>
+    <DefaultText style={[styles.text, textStyles[type], style]}>
       {children}
     </DefaultText>
   );
@@ -52,7 +47,6 @@ const Text: React.FC<TextProps> = ({children, type}) => {
 const styles = StyleSheet.create({
   text: {
     color: '#FFFF',
-    fontWeight: 'bold',
     fontFamily: 'SigmarOne-Regular',
   },
 });

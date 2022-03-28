@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import {StatusBar, StyleSheet, Text, View} from 'react-native';
+import {StatusBar, StyleSheet, View} from 'react-native';
 
 import {useNavigation} from '@react-navigation/native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
@@ -13,6 +13,7 @@ import SwipeGesture from '../components/swipe-gesture';
 
 import {getDestinaion, IPosition, isValidMove} from './utils';
 import Banner from '../components/ads/Banner';
+import Text, {TextTypes} from '../components/Text';
 
 const GameScreen: React.FC = () => {
   const navigation =
@@ -79,7 +80,12 @@ const GameScreen: React.FC = () => {
             onSwipePerformed={(action: string) => {
               onSwipePerformed(action, {row: rowIndex, col: index});
             }}>
-            <Tile char={char} size="large" key={'' + index} success={false} />
+            <Tile
+              char={char}
+              type={TextTypes.DEFAULT}
+              key={'' + index}
+              success={false}
+            />
           </SwipeGesture>
         ))}
       </View>
@@ -100,9 +106,16 @@ const GameScreen: React.FC = () => {
     <View style={styles.container}>
       <StatusBar barStyle="light-content" backgroundColor="#0000" hidden />
       <Logo />
-      <Text style={styles.count}>{count}</Text>
+      
+      <Text type={TextTypes.TITLE} style={styles.count}>
+        {count}
+      </Text>
 
-      {puzzle[0].length ? renderBoard() : <Text>Not ready</Text>}
+      {puzzle[0].length ? (
+        renderBoard()
+      ) : (
+        <Text type={TextTypes.SUBTITLE}>Not ready</Text>
+      )}
 
       <Banner />
     </View>
@@ -151,12 +164,9 @@ const styles = StyleSheet.create({
     marginTop: 30,
   },
   count: {
-    fontSize: 30,
     marginTop: 30,
     color: '#FFFF',
     textAlign: 'center',
-    fontWeight: 'bold',
-    fontFamily: 'SigmarOne-Regular',
   },
 });
 

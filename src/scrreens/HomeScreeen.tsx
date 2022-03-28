@@ -8,7 +8,7 @@ import {RootStackParams} from '../../App';
 
 import Logo from '../components/Logo';
 import Banner from '../components/ads/Banner';
-import Text, {textStyles, TextTypes} from '../components/Text';
+import Text, {TextTypes} from '../components/Text';
 
 const HomeScreen: React.FC = () => {
   const navigation =

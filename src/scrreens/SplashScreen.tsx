@@ -1,6 +1,6 @@
 import {useAppOpenAd} from '@react-native-admob/admob';
 import React, {useEffect} from 'react';
-import {StyleSheet, Text, View} from 'react-native';
+import {Text, View} from 'react-native';
 
 interface SplashScreenProps {
   onSplashDismissed: () => void;

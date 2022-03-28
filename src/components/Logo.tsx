@@ -6,9 +6,14 @@ const Logo: React.FC = () => {
   return (
     <View style={styles.container}>
       <Text type={TextTypes.TITLE}>
-        Word<Text type={TextTypes.TITLE} style={{color: '#538d4e'}}>Ke</Text>
+        Word
+        <Text type={TextTypes.TITLE} style={styles.text}>
+          Ke
+        </Text>
       </Text>
-      <Text type={TextTypes.SUBTITLE}>Türkçe</Text>
+      <Text type={TextTypes.SUBTITLE} style={styles.text}>
+        Türkçe
+      </Text>
     </View>
   );
 };
@@ -18,17 +23,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-  title: {
-    color: '#FFFF',
-    fontSize: 36,
-    fontFamily: 'SigmarOne-Regular',
-    marginTop: 30,
-  },
-  lang: {
-    fontSize: 16,
+  text: {
     color: '#538d4e',
-    fontWeight: 'bold',
-    fontFamily: 'SigmarOne-Regular',
   },
 });
 
