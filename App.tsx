@@ -1,7 +1,10 @@
 import {TestIds, AppOpenAdProvider} from '@react-native-admob/admob';
 import React, {useState} from 'react';
 import {NavigationContainer} from '@react-navigation/native';
-import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import {
+  createNativeStackNavigator,
+  NativeStackNavigationOptions,
+} from '@react-navigation/native-stack';
 import {
   TrackingStatus,
   getTrackingStatus,
@@ -84,16 +87,26 @@ const App = () => {
   return (
     <GameProvider>
       <NavigationContainer>
-        <Stack.Navigator>
+        <Stack.Navigator
+          screenOptions={{
+            headerBackButtonMenuEnabled: true,
+            headerTintColor: '#FFFF',
+            headerBackTitleVisible: false,
+            headerStyle: {
+              backgroundColor: '#121213',
+            },
+            headerTitle: '',
+            animation: 'slide_from_right',
+          }}>
           <Stack.Screen
             name="Home"
             component={HomeScreen}
-            options={{headerShown: false}}
+            // options={{headerShown: false}}
           />
           <Stack.Screen
             name="Game"
             component={GameScreen}
-            options={{headerShown: false}}
+            //options={{headerShown: false}}
           />
           <Stack.Screen
             name="Win"
