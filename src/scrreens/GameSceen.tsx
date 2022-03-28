@@ -14,6 +14,7 @@ import SwipeGesture from '../components/swipe-gesture';
 import {getDestinaion, IPosition, isValidMove} from './utils';
 import Banner from '../components/ads/Banner';
 import Text, {TextTypes} from '../components/Text';
+import { findPuzzle } from '../utils/game';
 
 const GameScreen: React.FC = () => {
   const navigation =
@@ -53,8 +54,11 @@ const GameScreen: React.FC = () => {
   const generatePuzzle = () => {
     const randomLevel = Math.floor(Math.random() * 10);
     console.log(randomLevel, levels[randomLevel].state);
-    setPuzzle(levels[randomLevel].state);
-    setGoal(levels[randomLevel].goal);
+    const {puzzle,goal} = findPuzzle()
+    setPuzzle(puzzle);
+    setGoal(goal);
+    //setPuzzle(levels[randomLevel].state);
+    //setGoal(levels[randomLevel].goal);
   };
 
   useEffect(() => {
