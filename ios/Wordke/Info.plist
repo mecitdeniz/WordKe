@@ -208,14 +208,7 @@
 	<string>$(PRODUCT_NAME) requires your permission to track in order to show you more relevant ads.</string>
 	<key>UIAppFonts</key>
 	<array>
-		<string>fredoka.ttf</string>
 		<string>SigmarOne-Regular.ttf</string>
-		<string>Bevan-Italic.ttf</string>
-		<string>Bevan-Regular.ttf</string>
-		<string>BowlbyOneSC-Regular.ttf</string>
-		<string>Monofett-Regular.ttf</string>
-		<string>PaytoneOne-Regular.ttf</string>
-		<string>RammettoOne-Regular.ttf</string>
 	</array>
 </dict>
 </plist>
