@@ -1,13 +1,20 @@
 import React, {useState, useEffect} from 'react';
-import {Button, StyleSheet, Text, View} from 'react-native';
-import levels from '../assets/levels.json';
-import Tile from '../components/Tile';
-import {getDestinaion, IPosition, isValidMove} from './utils';
-import SwipeGesture from '../swipe-gesture';
-import Alert from '../components/Alert';
+import {StatusBar, StyleSheet, View} from 'react-native';
+
 import {useNavigation} from '@react-navigation/native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
+
+import levels from '../assets/levels.json';
 import {RootStackParams} from '../../App';
+
+import Tile from '../components/Tile';
+import Logo from '../components/Logo';
+import SwipeGesture from '../components/swipe-gesture';
+
+import {getDestinaion, IPosition, isValidMove} from './utils';
+import Banner from '../components/ads/Banner';
+import Text, {TextTypes} from '../components/Text';
+import { findPuzzle } from '../utils/game';
 
 const GameScreen: React.FC = () => {
   const navigation =
@@ -18,7 +25,6 @@ const GameScreen: React.FC = () => {
 
   const [count, setCount] = useState(0);
   const [ready, setReady] = useState(false);
-  const [visible, setVisible] = useState(false);
 
   const onSwipePerformed = (action: string, position: IPosition) => {
     const destination = getDestinaion(action, position);
@@ -48,8 +54,11 @@ const GameScreen: React.FC = () => {
   const generatePuzzle = () => {
     const randomLevel = Math.floor(Math.random() * 10);
     console.log(randomLevel, levels[randomLevel].state);
-    setPuzzle(levels[randomLevel].state);
-    setGoal(levels[randomLevel].goal);
+    const {puzzle,goal} = findPuzzle()
+    setPuzzle(puzzle);
+    setGoal(goal);
+    //setPuzzle(levels[randomLevel].state);
+    //setGoal(levels[randomLevel].goal);
   };
 
   useEffect(() => {
@@ -75,57 +84,62 @@ const GameScreen: React.FC = () => {
             onSwipePerformed={(action: string) => {
               onSwipePerformed(action, {row: rowIndex, col: index});
             }}>
-            <Tile char={char} size="large" key={'' + index} />
+            <Tile
+              char={char}
+              type={TextTypes.DEFAULT}
+              key={'' + index}
+              success={false}
+            />
           </SwipeGesture>
         ))}
       </View>
     );
   };
 
+  const renderBoard = () => {
+    return (
+      <View style={styles.board}>
+        {renderRows(0)}
+        {renderRows(1)}
+        {renderRows(2)}
+      </View>
+    );
+  };
+
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>
-        Word<Text style={{color: '#FFFFFF'}}>Ke</Text>
+      <StatusBar barStyle="light-content" backgroundColor="#0000" hidden />
+      <Logo />
+      
+      <Text type={TextTypes.TITLE} style={styles.count}>
+        {count}
       </Text>
-      <Text style={{fontSize: 16, fontWeight: 'bold'}}>Türkçe</Text>
+
       {puzzle[0].length ? (
-        <View style={styles.board}>
-          {renderRows(0)}
-          {renderRows(1)}
-          {renderRows(2)}
-        </View>
+        renderBoard()
       ) : (
-        <Text>Not ready</Text>
+        <Text type={TextTypes.SUBTITLE}>Not ready</Text>
       )}
-      <Alert visible={visible}>
-        <Button title="Close" onPress={() => setVisible(false)} />
-        <Text style={{marginVertical: 30, fontSize: 20, textAlign: 'center'}}>
-          Congratulations!
-        </Text>
-        <Button
-          title="Next"
-          onPress={() => {
-            setVisible(false);
-          }}
-        />
-      </Alert>
-      <Button title="Show" onPress={() => setVisible(true)} />
+
+      <Banner />
     </View>
   );
 };
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
     alignItems: 'center',
     paddingVertical: 35,
-    backgroundColor: '#C8C8C8',
+    backgroundColor: '#121213',
   },
   board: {
-    flex: 1,
-    justifyContent: 'center',
+    top: 0,
+    bottom: 0,
+    left: 0,
+    right: 0,
+    position: 'absolute',
     alignItems: 'center',
-    marginTop: 40,
+    justifyContent: 'center',
   },
   square: {
     backgroundColor: '#000000',
@@ -148,10 +162,15 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
   },
   title: {
-    color: '#000000',
+    color: '#FFFF',
     fontSize: 36,
-    fontFamily: 'Fredoka One',
+    fontFamily: 'SigmarOne-Regular',
     marginTop: 30,
+  },
+  count: {
+    marginTop: 30,
+    color: '#FFFF',
+    textAlign: 'center',
   },
 });
 

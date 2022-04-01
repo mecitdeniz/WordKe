@@ -1,8 +1,14 @@
 import React from 'react';
+import {View, StatusBar, StyleSheet, TouchableOpacity} from 'react-native';
+
 import {useNavigation} from '@react-navigation/native';
-import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
+
 import {RootStackParams} from '../../App';
+
+import Logo from '../components/Logo';
+import Banner from '../components/ads/Banner';
+import Text, {TextTypes} from '../components/Text';
 
 const HomeScreen: React.FC = () => {
   const navigation =
@@ -13,29 +19,24 @@ const HomeScreen: React.FC = () => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>
-        Word<Text style={{color: '#FFFFFF'}}>Ke</Text>
-      </Text>
-      <Text style={{fontSize: 16, fontWeight: 'bold'}}>Türkçe</Text>
+      <StatusBar barStyle="light-content" backgroundColor="#0000" hidden />
+
+      <Logo />
+
       <TouchableOpacity onPress={handlePressPlay} style={styles.btn}>
-        <Text style={styles.text}>Oyna</Text>
+        <Text type={TextTypes.SUBTITLE}>Oyna</Text>
       </TouchableOpacity>
+
       <View style={styles.row}>
         <TouchableOpacity style={styles.btnSmall}>
-          <Text style={styles.text}>Temalar</Text>
+          <Text type={TextTypes.SUBTITLE}>Temalar</Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.btnSmall}>
-          <Text style={styles.text}>Ayarlar</Text>
+          <Text type={TextTypes.SUBTITLE}>Ayarlar</Text>
         </TouchableOpacity>
       </View>
-      <View style={{height: 45}}>
-        {/* <BannerAd
-          size={BannerAdSize.BANNER}
-          unitId={TestIds.BANNER}
-          onAdLoaded={() => console.log('Banner Ad loaded!')}
-          onAdFailedToLoad={error => console.log('Fail:', error)}
-        /> */}
-      </View>
+
+      <Banner />
     </View>
   );
 };
@@ -44,11 +45,11 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    paddingVertical: 35,
-    backgroundColor: '#C8C8C8',
+    padding: 35,
+    backgroundColor: '#121213',
   },
   btn: {
-    backgroundColor: '#000000',
+    backgroundColor: '#3a3a3c',
     height: 80,
     width: 220,
     borderRadius: 15,
@@ -66,7 +67,7 @@ const styles = StyleSheet.create({
     marginTop: 30,
   },
   btnSmall: {
-    backgroundColor: '#000000',
+    backgroundColor: '#3a3a3c',
     height: 80,
     width: 105,
     borderRadius: 15,
@@ -85,12 +86,12 @@ const styles = StyleSheet.create({
   text: {
     color: 'white',
     fontSize: 16,
-    fontFamily: 'Fredoka One',
+    fontFamily: 'SigmarOne-Regular',
   },
   title: {
-    color: '#000000',
+    color: '#FFFF',
     fontSize: 36,
-    fontFamily: 'Fredoka One',
+    fontFamily: 'SigmarOne-Regular',
   },
   row: {
     flexDirection: 'row',
