@@ -6,6 +6,7 @@ interface TileProps {
   char: string;
   type: TextTypes;
   success: boolean;
+  correct: boolean;
 }
 
 enum SIZES {
@@ -13,19 +14,28 @@ enum SIZES {
   LARGE = 60,
 }
 
-const Tile: React.FC<TileProps> = ({char, type, success}) => {
-  const style =
-    success === false
-      ? {
-          width: SIZES.LARGE,
-          height: SIZES.LARGE,
-          backgroundColor: '#3a3a3c',
-        }
-      : {
-          width: SIZES.SMALL,
-          height: SIZES.SMALL,
-          backgroundColor: '#538d4e',
-        };
+const Tile: React.FC<TileProps> = ({char, type, success, correct}) => {
+  let style = {
+    width: SIZES.LARGE,
+    height: SIZES.LARGE,
+    backgroundColor: '#3a3a3c',
+  };
+
+  if (success) {
+    style = {
+      width: SIZES.SMALL,
+      height: SIZES.SMALL,
+      backgroundColor: '#538d4e',
+    };
+  }
+
+  if (correct) {
+    style = {
+      width: SIZES.LARGE,
+      height: SIZES.LARGE,
+      backgroundColor: '#b59f3b',
+    };
+  }
 
   return (
     <View style={[styles.container, style]}>

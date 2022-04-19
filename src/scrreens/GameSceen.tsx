@@ -14,7 +14,7 @@ import SwipeGesture from '../components/swipe-gesture';
 import {getDestinaion, IPosition, isValidMove} from './utils';
 import Banner from '../components/ads/Banner';
 import Text, {TextTypes} from '../components/Text';
-import { findPuzzle } from '../utils/game';
+import {findPuzzle} from '../utils/game';
 
 const GameScreen: React.FC = () => {
   const navigation =
@@ -35,6 +35,7 @@ const GameScreen: React.FC = () => {
     setCount(prev => prev + 1);
   };
 
+  //util
   const swap = (list: string[][], a: IPosition, b: IPosition): string[][] => {
     const temp = list[a.row][a.col];
     list[a.row][a.col] = list[b.row][b.col];
@@ -54,7 +55,7 @@ const GameScreen: React.FC = () => {
   const generatePuzzle = () => {
     const randomLevel = Math.floor(Math.random() * 10);
     console.log(randomLevel, levels[randomLevel].state);
-    const {puzzle,goal} = findPuzzle()
+    const {puzzle, goal} = findPuzzle();
     setPuzzle(puzzle);
     setGoal(goal);
     //setPuzzle(levels[randomLevel].state);
@@ -89,6 +90,7 @@ const GameScreen: React.FC = () => {
               type={TextTypes.DEFAULT}
               key={'' + index}
               success={false}
+              correct={goal[rowIndex][index] === char}
             />
           </SwipeGesture>
         ))}
@@ -110,7 +112,7 @@ const GameScreen: React.FC = () => {
     <View style={styles.container}>
       <StatusBar barStyle="light-content" backgroundColor="#0000" hidden />
       <Logo />
-      
+
       <Text type={TextTypes.TITLE} style={styles.count}>
         {count}
       </Text>
