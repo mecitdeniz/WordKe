@@ -6,7 +6,7 @@ interface TileProps {
   char: string;
   type: TextTypes;
   success: boolean;
-  correct: boolean;
+  correct?: boolean;
 }
 
 enum SIZES {
@@ -14,7 +14,7 @@ enum SIZES {
   LARGE = 60,
 }
 
-const Tile: React.FC<TileProps> = ({char, type, success, correct}) => {
+const Tile: React.FC<TileProps> = ({char, type, success, correct = false}) => {
   let style = {
     width: SIZES.LARGE,
     height: SIZES.LARGE,
