@@ -1,5 +1,5 @@
 import {TestIds, AppOpenAdProvider} from '@react-native-admob/admob';
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 
 import {
   TrackingStatus,
@@ -17,27 +17,27 @@ const App = () => {
 
   const [splashDismissed, setSplashDismissed] = useState(false);
 
-  const request = async () => {
+  const checkTrackingPermission = async () => {
     try {
       const status = await requestTrackingPermission();
-      if (trackingStatus === 'authorized' || trackingStatus === 'unavailable') {
-        // TODO: enable tracking features
-      }
       setTrackingStatus(status);
-      console.log('Request:', status);
+      console.log('Tracking:', status);
     } catch (e: any) {
       console.log('Error', e?.toString?.() ?? e);
     }
   };
 
-  React.useEffect(() => {
+  const onSplashDismissed = () => {
+    setSplashDismissed(true);
+  };
+
+  useEffect(() => {
     getTrackingStatus()
       .then(status => {
         setTrackingStatus(status);
-        console.log('Check:', status);
+        console.log('Tracking:', status);
         if (status === 'not-determined') {
-          console.log('Request');
-          request();
+          checkTrackingPermission();
         }
         if (
           trackingStatus === 'authorized' ||
@@ -52,11 +52,15 @@ const App = () => {
   return (
     <AppOpenAdProvider
       unitId={TestIds.APP_OPEN}
-      options={{showOnColdStart: true, loadOnDismissed: splashDismissed}}>
+      options={{
+        showOnAppForeground: false,
+        showOnColdStart: true,
+        loadOnDismissed: splashDismissed,
+      }}>
       {splashDismissed ? (
         <Navigation />
       ) : (
-        <SplashScreen onSplashDismissed={() => setSplashDismissed(true)} />
+        <SplashScreen onSplashDismissed={onSplashDismissed} />
       )}
     </AppOpenAdProvider>
   );

@@ -4,8 +4,6 @@ import {StatusBar, StyleSheet, View} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 
-import levels from '../../assets/levels.json';
-
 import Tile from '../../components/Tile';
 import Logo from '../../components/Logo';
 import SwipeGesture from '../../components/swipe-gesture';
@@ -54,15 +52,16 @@ const GameScreen: React.FC = () => {
   };
 
   const generatePuzzle = () => {
-    const randomLevel = Math.floor(Math.random() * 10);
-    console.log(randomLevel, levels[randomLevel].state);
     const {puzzle, goal} = findPuzzle();
     setPuzzle(puzzle);
     setGoal(goal);
-    //setPuzzle(levels[randomLevel].state);
-    //setGoal(levels[randomLevel].goal);
   };
 
+  const checkWin = () => {
+    if (ready && isComplated()) {
+      navigation.replace(WIN_SCREEN, {goal, count});
+    }
+  };
   useEffect(() => {
     if (!ready) {
       generatePuzzle();
@@ -71,30 +70,29 @@ const GameScreen: React.FC = () => {
   }, []);
 
   useEffect(() => {
-    if (ready && isComplated()) {
-      navigation.replace(WIN_SCREEN, {goal, count});
-    }
+    checkWin();
   }, [puzzle]);
 
   const renderRows = (rowIndex: number) => {
     return (
       <View style={styles.row}>
-        {puzzle[rowIndex].map((char, index) => (
-          <SwipeGesture
-            key={`tile_${rowIndex}_${index}`}
-            gestureStyle={styles.square}
-            onSwipePerformed={(action: string) => {
-              onSwipePerformed(action, {row: rowIndex, col: index});
-            }}>
-            <Tile
-              char={char}
-              type={TextTypes.DEFAULT}
-              key={'' + index}
-              success={false}
-              correct={goal[rowIndex][index] === char}
-            />
-          </SwipeGesture>
-        ))}
+        {puzzle[rowIndex].map((char, index) => {
+          return (
+            <SwipeGesture
+              key={`tile_${rowIndex}_${index}`}
+              gestureStyle={styles.square}
+              onSwipePerformed={(action: string) => {
+                onSwipePerformed(action, {row: rowIndex, col: index});
+              }}>
+              <Tile
+                char={char}
+                type={TextTypes.DEFAULT}
+                key={'' + index}
+                success={false}
+              />
+            </SwipeGesture>
+          );
+        })}
       </View>
     );
   };
