@@ -4,17 +4,18 @@ import {StatusBar, StyleSheet, View} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 
-import levels from '../assets/levels.json';
-import {RootStackParams} from '../../App';
+import levels from '../../assets/levels.json';
 
-import Tile from '../components/Tile';
-import Logo from '../components/Logo';
-import SwipeGesture from '../components/swipe-gesture';
+import Tile from '../../components/Tile';
+import Logo from '../../components/Logo';
+import SwipeGesture from '../../components/swipe-gesture';
 
-import {getDestinaion, IPosition, isValidMove} from './utils';
-import Banner from '../components/ads/Banner';
-import Text, {TextTypes} from '../components/Text';
-import {findPuzzle} from '../utils/game';
+import {getDestinaion, IPosition, isValidMove} from '../utils';
+import Banner from '../../components/ads/Banner';
+import Text, {TextTypes} from '../../components/Text';
+import {findPuzzle} from '../../utils/game';
+import {WIN_SCREEN} from '../../common/constants';
+import {RootStackParams} from '../../navigation/Navigation';
 
 const GameScreen: React.FC = () => {
   const navigation =
@@ -71,7 +72,7 @@ const GameScreen: React.FC = () => {
 
   useEffect(() => {
     if (ready && isComplated()) {
-      navigation.replace('Win', {goal, count});
+      navigation.replace(WIN_SCREEN, {goal, count});
     }
   }, [puzzle]);
 

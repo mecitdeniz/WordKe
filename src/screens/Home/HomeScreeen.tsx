@@ -4,17 +4,17 @@ import {View, StatusBar, StyleSheet, TouchableOpacity} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 
-import {RootStackParams} from '../../App';
-
-import Logo from '../components/Logo';
-import Banner from '../components/ads/Banner';
-import Text, {TextTypes} from '../components/Text';
+import Logo from '../../components/Logo';
+import Banner from '../../components/ads/Banner';
+import Text, {TextTypes} from '../../components/Text';
+import {GAME_SCREEN} from '../../common/constants';
+import {RootStackParams} from '../../navigation/Navigation';
 
 const HomeScreen: React.FC = () => {
   const navigation =
     useNavigation<NativeStackNavigationProp<RootStackParams>>();
   const handlePressPlay = () => {
-    navigation.navigate('Game');
+    navigation.navigate(GAME_SCREEN);
   };
 
   return (
