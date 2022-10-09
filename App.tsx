@@ -1,29 +1,14 @@
 import {TestIds, AppOpenAdProvider} from '@react-native-admob/admob';
-import React, {useState} from 'react';
-import {NavigationContainer} from '@react-navigation/native';
-import {
-  createNativeStackNavigator,
-  NativeStackNavigationOptions,
-} from '@react-navigation/native-stack';
+import React, {useEffect, useState} from 'react';
+
 import {
   TrackingStatus,
   getTrackingStatus,
   requestTrackingPermission,
 } from 'react-native-tracking-transparency';
 
-import GameScreen from './src/scrreens/GameSceen';
-import HomeScreen from './src/scrreens/HomeScreeen';
-import WinScreen from './src/scrreens/WinScreeen';
-import SplashScreen from './src/scrreens/SplashScreen';
-import GameProvider from './src/GameProvider';
-
-export type RootStackParams = {
-  Home: any;
-  Game: any;
-  Win: {goal: string[][]; count: number};
-};
-
-const Stack = createNativeStackNavigator<RootStackParams>();
+import Navigation from './src/navigation/Navigation';
+import SplashScreen from './src/screens/Splash/SplashScreen';
 
 const App = () => {
   const [trackingStatus, setTrackingStatus] = useState<
@@ -32,90 +17,52 @@ const App = () => {
 
   const [splashDismissed, setSplashDismissed] = useState(false);
 
-  const request = async () => {
+  const checkTrackingPermission = async () => {
     try {
       const status = await requestTrackingPermission();
-      if (trackingStatus === 'authorized' || trackingStatus === 'unavailable') {
-        // TODO: enable tracking features
-      }
       setTrackingStatus(status);
-      console.log('Request:', status);
+      console.log('Tracking:', status);
     } catch (e: any) {
       console.log('Error', e?.toString?.() ?? e);
     }
   };
 
-  // React.useEffect(() => {
-  //   getTrackingStatus()
-  //     .then(status => {
-  //       setTrackingStatus(status);
-  //       console.log('Check:', status);
-  //       if (status === 'not-determined') {
-  //         console.log('Request');
-  //         request();
-  //       }
-  //       if (
-  //         trackingStatus === 'authorized' ||
-  //         trackingStatus === 'unavailable'
-  //       ) {
-  //         // TODO: enable tracking features
-  //       }
-  //     })
-  //     .catch(e => console.log('Error', e?.toString?.() ?? e));
-  // }, []);
+  const onSplashDismissed = () => {
+    setSplashDismissed(true);
+  };
 
-  // return (
-  //   <AppOpenAdProvider
-  //     unitId={TestIds.APP_OPEN}
-  //     options={{showOnColdStart: true, loadOnDismissed: splashDismissed}}>
-  //     <SafeAreaView
-  //       style={{
-  //         flex: 1,
-  //         justifyContent: 'center',
-  //         alignItems: 'center',
-  //       }}>
-  //       <GameProvider>
-  //         {splashDismissed ? (
-  //           <GameScreen />
-  //         ) : (
-  //           <SplashScreen onSplashDismissed={() => setSplashDismissed(true)} />
-  //         )}
-  //       </GameProvider>
-  //     </SafeAreaView>
-  //   </AppOpenAdProvider>
-  // );
+  useEffect(() => {
+    getTrackingStatus()
+      .then(status => {
+        setTrackingStatus(status);
+        console.log('Tracking:', status);
+        if (status === 'not-determined') {
+          checkTrackingPermission();
+        }
+        if (
+          trackingStatus === 'authorized' ||
+          trackingStatus === 'unavailable'
+        ) {
+          // TODO: enable tracking features
+        }
+      })
+      .catch(e => console.log('Error', e?.toString?.() ?? e));
+  }, []);
+
   return (
-    <GameProvider>
-      <NavigationContainer>
-        <Stack.Navigator
-          screenOptions={{
-            headerBackButtonMenuEnabled: true,
-            headerTintColor: '#FFFF',
-            headerBackTitleVisible: false,
-            headerStyle: {
-              backgroundColor: '#121213',
-            },
-            headerTitle: '',
-            animation: 'slide_from_right',
-          }}>
-          <Stack.Screen
-            name="Home"
-            component={HomeScreen}
-            // options={{headerShown: false}}
-          />
-          <Stack.Screen
-            name="Game"
-            component={GameScreen}
-            //options={{headerShown: false}}
-          />
-          <Stack.Screen
-            name="Win"
-            component={WinScreen}
-            options={{headerShown: false}}
-          />
-        </Stack.Navigator>
-      </NavigationContainer>
-    </GameProvider>
+    <AppOpenAdProvider
+      unitId={TestIds.APP_OPEN}
+      options={{
+        showOnAppForeground: false,
+        showOnColdStart: true,
+        loadOnDismissed: splashDismissed,
+      }}>
+      {splashDismissed ? (
+        <Navigation />
+      ) : (
+        <SplashScreen onSplashDismissed={onSplashDismissed} />
+      )}
+    </AppOpenAdProvider>
   );
 };
 

@@ -2,10 +2,10 @@ import React from 'react';
 import {RouteProp, useNavigation, useRoute} from '@react-navigation/native';
 import {StatusBar, StyleSheet, TouchableOpacity, View} from 'react-native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
-import {RootStackParams} from '../../App';
-import Tile from '../components/Tile';
-import Logo from '../components/Logo';
-import Text, {TextTypes} from '../components/Text';
+import Tile from '../../components/Tile';
+import Logo from '../../components/Logo';
+import Text, {TextTypes} from '../../components/Text';
+import {RootStackParams} from '../../navigation/Navigation';
 
 type WinScreeenRoutetype = RouteProp<RootStackParams, 'Win'>;
 const WinScreen: React.FC = () => {
@@ -25,7 +25,12 @@ const WinScreen: React.FC = () => {
       <View style={styles.row}>
         {goal[rowIndex].map((char, index) => (
           <View key={`tile_${rowIndex}_${index}`}>
-            <Tile char={char} type={TextTypes.SUBTITLE} key={'' + index} success={true} />
+            <Tile
+              char={char}
+              type={TextTypes.SUBTITLE}
+              key={'' + index}
+              success={true}
+            />
           </View>
         ))}
       </View>
@@ -43,7 +48,6 @@ const WinScreen: React.FC = () => {
       </Text>
 
       <View style={styles.board}>
-        
         <View>
           {renderRows(0)}
           {renderRows(1)}
@@ -51,8 +55,7 @@ const WinScreen: React.FC = () => {
         </View>
 
         <View style={{marginTop: 60}}>
-          
-          <Text type={TextTypes.SUBTITLE} style={{marginLeft:10}}>
+          <Text type={TextTypes.SUBTITLE} style={{marginLeft: 10}}>
             Hamle Sayısı :{' '}
             <Text type={TextTypes.DEFAULT} style={{color: '#538d4e'}}>
               {count}
@@ -64,7 +67,6 @@ const WinScreen: React.FC = () => {
             style={styles.btnPlayAgain}>
             <Text type={TextTypes.SUBTITLE}>Yeni Oyun</Text>
           </TouchableOpacity>
-
         </View>
       </View>
     </View>

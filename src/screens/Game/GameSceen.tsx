@@ -4,17 +4,16 @@ import {StatusBar, StyleSheet, View} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 
-import levels from '../assets/levels.json';
-import {RootStackParams} from '../../App';
+import Tile from '../../components/Tile';
+import Logo from '../../components/Logo';
+import SwipeGesture from '../../components/swipe-gesture';
 
-import Tile from '../components/Tile';
-import Logo from '../components/Logo';
-import SwipeGesture from '../components/swipe-gesture';
-
-import {getDestinaion, IPosition, isValidMove} from './utils';
-import Banner from '../components/ads/Banner';
-import Text, {TextTypes} from '../components/Text';
-import { findPuzzle } from '../utils/game';
+import {getDestinaion, IPosition, isValidMove} from '../utils';
+import Banner from '../../components/ads/Banner';
+import Text, {TextTypes} from '../../components/Text';
+import {findPuzzle} from '../../utils/game';
+import {WIN_SCREEN} from '../../common/constants';
+import {RootStackParams} from '../../navigation/Navigation';
 
 const GameScreen: React.FC = () => {
   const navigation =
@@ -35,6 +34,7 @@ const GameScreen: React.FC = () => {
     setCount(prev => prev + 1);
   };
 
+  //util
   const swap = (list: string[][], a: IPosition, b: IPosition): string[][] => {
     const temp = list[a.row][a.col];
     list[a.row][a.col] = list[b.row][b.col];
@@ -52,15 +52,16 @@ const GameScreen: React.FC = () => {
   };
 
   const generatePuzzle = () => {
-    const randomLevel = Math.floor(Math.random() * 10);
-    console.log(randomLevel, levels[randomLevel].state);
-    const {puzzle,goal} = findPuzzle()
+    const {puzzle, goal} = findPuzzle();
     setPuzzle(puzzle);
     setGoal(goal);
-    //setPuzzle(levels[randomLevel].state);
-    //setGoal(levels[randomLevel].goal);
   };
 
+  const checkWin = () => {
+    if (ready && isComplated()) {
+      navigation.replace(WIN_SCREEN, {goal, count});
+    }
+  };
   useEffect(() => {
     if (!ready) {
       generatePuzzle();
@@ -69,29 +70,29 @@ const GameScreen: React.FC = () => {
   }, []);
 
   useEffect(() => {
-    if (ready && isComplated()) {
-      navigation.replace('Win', {goal, count});
-    }
+    checkWin();
   }, [puzzle]);
 
   const renderRows = (rowIndex: number) => {
     return (
       <View style={styles.row}>
-        {puzzle[rowIndex].map((char, index) => (
-          <SwipeGesture
-            key={`tile_${rowIndex}_${index}`}
-            gestureStyle={styles.square}
-            onSwipePerformed={(action: string) => {
-              onSwipePerformed(action, {row: rowIndex, col: index});
-            }}>
-            <Tile
-              char={char}
-              type={TextTypes.DEFAULT}
-              key={'' + index}
-              success={false}
-            />
-          </SwipeGesture>
-        ))}
+        {puzzle[rowIndex].map((char, index) => {
+          return (
+            <SwipeGesture
+              key={`tile_${rowIndex}_${index}`}
+              gestureStyle={styles.square}
+              onSwipePerformed={(action: string) => {
+                onSwipePerformed(action, {row: rowIndex, col: index});
+              }}>
+              <Tile
+                char={char}
+                type={TextTypes.DEFAULT}
+                key={'' + index}
+                success={false}
+              />
+            </SwipeGesture>
+          );
+        })}
       </View>
     );
   };
@@ -110,7 +111,7 @@ const GameScreen: React.FC = () => {
     <View style={styles.container}>
       <StatusBar barStyle="light-content" backgroundColor="#0000" hidden />
       <Logo />
-      
+
       <Text type={TextTypes.TITLE} style={styles.count}>
         {count}
       </Text>

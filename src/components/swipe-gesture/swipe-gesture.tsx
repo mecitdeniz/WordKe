@@ -4,7 +4,7 @@ import {Animated, PanResponder, View} from 'react-native';
 interface SwipeGestureProps {
   onSwipePerformed: (action: string) => void;
   gestureStyle: any;
-  children: React.ReactChild;
+  children: React.ReactNode;
 }
 
 const SwipeGesture: React.FC<SwipeGestureProps> = ({

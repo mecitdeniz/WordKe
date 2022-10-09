@@ -2,11 +2,9 @@ import wordFile from '../assets/filtered.js';
 const words = wordFile.words;
 
 export function findPuzzle() {
-  console.log('findPuzzle');
   let combination: string[][] = [[], [], []];
   while (!isPuzlle(combination)) {
     combination = createCombination();
-    console.log(combination);
   }
   const puzzle = shuffle(combination);
   return {
