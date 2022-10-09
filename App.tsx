@@ -10,10 +10,19 @@ import {
 import Navigation from './src/navigation/Navigation';
 import SplashScreen from './src/screens/Splash/SplashScreen';
 
+enum TrackingStatusTypes {
+  UNAVAILABLE = 'unavailable',
+  DENIED = 'denied',
+  AUTHORIZED = 'authorized',
+  RESTRICTED = 'restricted',
+  NOT_DETERMINED = 'not-determined',
+  LOADING = '(loading)',
+}
+
 const App = () => {
   const [trackingStatus, setTrackingStatus] = useState<
-    TrackingStatus | '(loading)'
-  >('(loading)');
+    TrackingStatus | TrackingStatusTypes.LOADING
+  >(TrackingStatusTypes.LOADING);
 
   const [splashDismissed, setSplashDismissed] = useState(false);
 
@@ -36,12 +45,12 @@ const App = () => {
       .then(status => {
         setTrackingStatus(status);
         console.log('Tracking:', status);
-        if (status === 'not-determined') {
+        if (status === TrackingStatusTypes.NOT_DETERMINED) {
           checkTrackingPermission();
         }
         if (
-          trackingStatus === 'authorized' ||
-          trackingStatus === 'unavailable'
+          trackingStatus === TrackingStatusTypes.AUTHORIZED ||
+          trackingStatus === TrackingStatusTypes.UNAVAILABLE
         ) {
           // TODO: enable tracking features
         }
